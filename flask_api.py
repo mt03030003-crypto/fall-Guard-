@@ -18,13 +18,23 @@ best_name = None
 
 try:
     # Try loading the pickled model
+    import os
+    model_path = 'simple_detector.pkl'
+    print(f"Attempting to load model from: {model_path}")
+    print(f"File exists: {os.path.exists(model_path)}")
+    if os.path.exists(model_path):
+        print(f"File size: {os.path.getsize(model_path)} bytes")
+    
     with open('simple_detector.pkl', 'rb') as f:
         detector = pickle.load(f)
     best_name = max(detector.models, key=lambda x: detector.models[x]['accuracy'])
-    print(f"Model loaded OK: {best_name}  accuracy: {detector.models[best_name]['accuracy']:.4f}")
+    print(f"✅ Model loaded OK: {best_name}  accuracy: {detector.models[best_name]['accuracy']:.4f}")
+    print(f"Models available: {list(detector.models.keys())}")
 except Exception as e:
-    print(f"Could not load pickled model: {e}")
-    print("Creating lightweight model from scratch...")
+    print(f"❌ Could not load pickled model: {e}")
+    import traceback
+    traceback.print_exc()
+    print("⚠️  Creating lightweight fallback model...")
     
     # Import model class
     from simple_fall_detector import SimpleFallDetector
