@@ -1,0 +1,103 @@
+========================================================
+RAILWAY DEPLOYMENT - Fall Guard API
+========================================================
+
+GitHub Repository: https://github.com/mt03030003-crypto/fall-Guard-uploaf
+Local Folder: C:\Users\Sameer\Downloads\50hz\50hz\cloud_deploy
+
+========================================================
+STEP 1: Push to GitHub
+========================================================
+
+Method A - GitHub Desktop (Recommended):
+1. Download: https://desktop.github.com
+2. Login with account: mt03030003-crypto
+3. File → Add Local Repository → Select this folder
+4. Click "Publish repository" or "Push origin"
+
+Method B - Command Line:
+1. Open PowerShell in this folder
+2. Run: git push -u origin main
+3. Login when prompted with mt03030003-crypto credentials
+
+========================================================
+STEP 2: Deploy on Railway
+========================================================
+
+1. Go to: https://railway.app
+2. Login/Sign up
+3. Click "New Project"
+4. Select "Deploy from GitHub repo"
+5. Choose: mt03030003-crypto/fall-Guard-uploaf
+6. Railway will auto-detect and deploy!
+
+========================================================
+STEP 3: Set Environment Variables (for SMS alerts)
+========================================================
+
+In Railway Dashboard → Your Project → Variables:
+
+TWILIO_SID=ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+TWILIO_TOKEN=your_twilio_auth_token
+TWILIO_FROM=+1234567890
+EMERGENCY_TO=+1234567890
+PORT=5000
+
+Get Twilio free trial: https://www.twilio.com/try-twilio
+
+========================================================
+STEP 4: Get Your New Railway URL
+========================================================
+
+After deployment completes (~3-5 minutes):
+1. Railway Dashboard → Settings → Domains
+2. Copy your URL (example: https://fall-guard-production-xxxx.up.railway.app)
+
+========================================================
+STEP 5: Update Mobile App
+========================================================
+
+Edit: mobile_app/main.py
+
+Find line:
+CLOUD_URL = 'https://web-production-44fc6.up.railway.app'
+
+Change to your new URL:
+CLOUD_URL = 'https://your-new-railway-url.up.railway.app'
+
+Then rebuild the mobile APK.
+
+========================================================
+TEST YOUR API
+========================================================
+
+Replace YOUR_URL with your Railway URL:
+
+Test 1 - Health Check:
+https://YOUR_URL/ping
+
+Test 2 - Send SMS (after setting Twilio vars):
+POST https://YOUR_URL/test_sms
+
+========================================================
+FILES INCLUDED (All Ready to Deploy)
+========================================================
+
+✅ flask_api.py - Main API server
+✅ simple_detector.pkl - ML model (97.98% accuracy)  
+✅ simple_fall_detector.py - Model class
+✅ requirements.txt - Python dependencies
+✅ Procfile - Gunicorn config
+✅ railway.json - Railway config
+✅ .gitignore - Exclude unnecessary files
+
+========================================================
+IMPORTANT NOTES
+========================================================
+
+- Free Railway tier: $5 credit/month (~150 hours)
+- Free Twilio: $15 credit (~500 SMS)
+- Build time: 3-5 minutes
+- Your API will be live 24/7
+
+========================================================
